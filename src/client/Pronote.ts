@@ -42,7 +42,7 @@ import { callApiUserMessages } from "~/api/user/messages";
 import { MessagesOverview } from "~/parser/messages";
 import { PronoteApiOnglets } from "~/constants/onglets";
 import { callApiUserAttendance } from "~/api/user/attendance";
-import { StudentAbsence, StudentDelay, StudentObservation, StudentPunishment } from "~/parser/attendance";
+import { StudentAbsence, StudentDelay, StudentObservation, StudentPrecautionaryMeasure, StudentPunishment } from "~/parser/attendance";
 import { callApiUserMessageRecipients } from "~/api/user/messageRecipients";
 import { DiscussionCreationRecipient, FetchedMessageRecipient } from "~/parser/recipient";
 import Holiday from "~/parser/holiday";
@@ -66,9 +66,9 @@ import { PronoteApiDomainFrequencyType, PronoteApiMaxDomainCycle } from "~/const
 import { parseSelection } from "~/pronote/select";
 import { TimetableOverview } from "~/parser/timetable";
 import { callApiUserDiscussionCommand } from "~/api/user/discussionCommand";
-import { ARDPartner } from "~/parser/partners/ard";
 import { ApiUserDiscussionAvailableCommands } from "~/api/user/discussionCommand/types";
 import type { PawnoteSupportedFormDataFile } from "~/utils/file";
+import { callApiUserGeneratePDF } from "~/api/user/generatePDF";
 
 //TODO: Check descriptions and language !
 /** A reprensentation of the Pronote client.
@@ -606,6 +606,30 @@ export default class Pronote {
     });
   }
 
+  public readPeriodsForGradesReport (): Period[] {
+    return this.periodsByOnglet.get(PronoteApiOnglets.GradesReport)!.values.map((period) => period.linkedPeriod)
+      .filter(Boolean) as Period[];
+  }
+
+  public readDefaultPeriodForGradesReport (): Period {
+    return this.periodsByOnglet.get(PronoteApiOnglets.GradesReport)!.default;
+  }
+
+  /**
+   * @param period - Period the grades report will be from.
+   * @returns an URL to download the PDF file.
+   */
+  public async generateGradesReportPDF (period = this.readDefaultPeriodForGradesReport()) {
+    return this.queue.push(async () => {
+      const data = await callApiUserGeneratePDF(this.fetcher, {
+        session: this.session,
+        period
+      });
+
+      return this.pronoteRootURL + "/" + data.url;
+    });
+  }
+
   /**
    * Get the evaluations periods.
    * @returns {Period[]}
@@ -922,7 +946,7 @@ export default class Pronote {
       });
 
       return data.donnees.listeAbsences.V.map((item) => {
-        let instance: StudentAbsence | StudentDelay | StudentPunishment | StudentObservation;
+        let instance: StudentAbsence | StudentDelay | StudentPunishment | StudentObservation | StudentPrecautionaryMeasure;
 
         switch (item.G) {
           case PronoteApiResourceType.Absence:
@@ -937,10 +961,13 @@ export default class Pronote {
           case PronoteApiResourceType.ObservationProfesseurEleve:
             instance = new StudentObservation(item);
             break;
+          case PronoteApiResourceType.PrecautionaryMeasure:
+            instance = new StudentPrecautionaryMeasure(this, item);
+            break;
         }
 
         return instance;
-      }).filter(Boolean) as Array<StudentAbsence | StudentDelay | StudentPunishment | StudentObservation>;
+      }).filter(Boolean) as Array<StudentAbsence | StudentDelay | StudentPunishment | StudentObservation | StudentPrecautionaryMeasure>;
     });
   }
 
