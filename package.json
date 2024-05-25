@@ -1,6 +1,6 @@
 {
   "name": "pawnote",
-  "version": "0.21.0",
+  "version": "0.21.1",
   "description": "A simple wrapper around Index-Education's Pronote internal API.",
   "repository": "github:LiterateInk/Pawnote",
   "main": "./dist/index.js",
@@ -43,12 +43,12 @@
     "git": {
       "commitMessage": "chore: release v${version}",
       "tagAnnotation": "Release v${version}",
-      "tagName": "v${version}"
+      "tagName": "js-v${version}"
     },
     "github": {
       "release": true,
       "draft": false,
-      "releaseName": "v${version}"
+      "releaseName": "js v${version}"
     },
     "npm": {
       "publish": true
