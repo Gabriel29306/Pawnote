@@ -18,7 +18,7 @@
     "release": "release-it",
     "lint": "tsc && eslint .",
     "tsx": "tsx",
-    "doc": " npx typedoc --out ./docs/type_doc_out/ ./src/ --basePath ./src/"
+    "doc": "cd docs && npx npx astro dev --host"
   },
   "files": [
     "dist"
