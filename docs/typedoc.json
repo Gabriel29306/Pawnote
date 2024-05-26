@@ -7,5 +7,6 @@
         "Key Dates",
         "*",
         "Not for normal uses"
-    ]
+    ],
+    "sourceLinkTemplate": "https://github.com/LiterateInk/Pawnote/tree/js/{path}#L{line}"
 }
