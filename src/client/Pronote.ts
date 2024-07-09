@@ -374,7 +374,7 @@ export default class Pronote {
    * @returns {Promise<TimetableOverview>}
    * @see [timetable.ts](https://github.com/LiterateInk/Pawnote/blob/js/examples/timetable.ts)
    * @example
-   * // Returns the Timetable of today.
+   * // Returns the Timetable from today to the end of the year.
    * const overview = await pronoteInstance.getTimetableOverviewForInterval(new Date());
    * const timetable = overview.parse({
    *   withSuperposedCanceledClasses: false,
@@ -383,7 +383,7 @@ export default class Pronote {
    * });
    * 
    * // Returns the Timetable of January 2, 2024.
-   * const overview = await PronoteInstance.getTimetableOverviewForInterval(new Date(2024, 1, 2));
+   * const overview = await PronoteInstance.getTimetableOverviewForInterval(new Date(2024, 1, 2), new Date(2024, 1, 2));
    * const timetable = overview.parse({
    *   withSuperposedCanceledClasses: false,
    *   withCanceledClasses: true,
@@ -412,6 +412,22 @@ export default class Pronote {
     });
   }
 
+  /**
+   * Obtain a overview of the Timetable between the `start` and `end` arguments.
+   * @param {number} weekNumber - The week to recover the timetable.
+   * @returns {Promise<TimetableOverview>}
+   * @see [timetable.ts](https://github.com/LiterateInk/Pawnote/blob/js/examples/timetable.ts)
+   * @example
+   * currentWeekNumber = translateToPronoteWeekNumber(new Date(), pronoteInstance.firstDate)
+   * // Returns the Timetable of the current week.
+   * const overview = await pronoteInstance.getTimetableOverviewForInterval(currentWeekNumber);
+   * const timetable = overview.parse({
+   *   withSuperposedCanceledClasses: false,
+   *   withCanceledClasses: true,
+   *   withPlannedClasses: true
+   * });
+   * @group Timetable
+   */
   public async getTimetableOverviewForWeek (weekNumber: number): Promise<TimetableOverview> {
     return this.queue.push(async () => {
       const { data: { donnees: data } } = await callApiUserTimetable(this.fetcher, {
