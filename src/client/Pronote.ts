@@ -375,7 +375,7 @@ export default class Pronote {
    * @see [timetable.ts](https://github.com/LiterateInk/Pawnote/blob/js/examples/timetable.ts)
    * @example
    * // Returns the Timetable of today.
-   * const overview = await pronoteInstance.getTimetableOverview(new Date());
+   * const overview = await pronoteInstance.getTimetableOverviewForInterval(new Date());
    * const timetable = overview.parse({
    *   withSuperposedCanceledClasses: false,
    *   withCanceledClasses: true,
@@ -383,7 +383,7 @@ export default class Pronote {
    * });
    * 
    * // Returns the Timetable of January 2, 2024.
-   * const overview = await PronoteInstance.getTimetableOverview(new Date(2024, 1, 2));
+   * const overview = await PronoteInstance.getTimetableOverviewForInterval(new Date(2024, 1, 2));
    * const timetable = overview.parse({
    *   withSuperposedCanceledClasses: false,
    *   withCanceledClasses: true,
@@ -391,7 +391,7 @@ export default class Pronote {
    * });
    * 
    * // Returns the Timetable between January 1, 2024 and January 15, 2024.
-   * const overview = await PronoteInstance.getTimetableOverview(new Date(2024, 1, 1), new Date(2024, 1, 15));
+   * const overview = await PronoteInstance.getTimetableOverviewForInterval(new Date(2024, 1, 1), new Date(2024, 1, 15));
    * const timetable = overview.parse({
    *   withSuperposedCanceledClasses: false,
    *   withCanceledClasses: true,
@@ -399,13 +399,25 @@ export default class Pronote {
    * });
    * @group Timetable
    */
-  public async getTimetableOverview (start: Date, end?: Date): Promise<TimetableOverview> {
+  public async getTimetableOverviewForInterval (start: Date, end?: Date): Promise<TimetableOverview> {
     return this.queue.push(async () => {
       const { data: { donnees: data } } = await callApiUserTimetable(this.fetcher, {
         resource: this.user.ressource,
         session: this.session,
         startPronoteDate: transformDateToPronoteString(start),
         endPronoteDate: end && transformDateToPronoteString(end)
+      });
+
+      return new TimetableOverview(this, data);
+    });
+  }
+
+  public async getTimetableOverviewForWeek (weekNumber: number): Promise<TimetableOverview> {
+    return this.queue.push(async () => {
+      const { data: { donnees: data } } = await callApiUserTimetable(this.fetcher, {
+        resource: this.user.ressource,
+        session: this.session,
+        weekNumber
       });
 
       return new TimetableOverview(this, data);
@@ -869,9 +881,14 @@ export default class Pronote {
         userID: this.user.ressource.N
       });
 
-      this.personalInformationCache = new StudentPersonalInformation(data.Informations);
+      this.personalInformationCache = new StudentPersonalInformation(this.session, data);
       return this.personalInformationCache;
     });
+  }
+
+  public getTimetableICalURL (iCalToken: string, fileName = "timetable"): string {
+    const version = this.session.instance.version.join(".");
+    return `${this.pronoteRootURL}/ical/${fileName}.ics?icalsecurise=${iCalToken}&version=${version}&param=266f3d32`;
   }
 
   private presenceRequestsInterval?: ReturnType<typeof setInterval>;
