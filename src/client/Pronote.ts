@@ -69,6 +69,7 @@ import { callApiUserDiscussionCommand } from "~/api/user/discussionCommand";
 import { ApiUserDiscussionAvailableCommands } from "~/api/user/discussionCommand/types";
 import type { PawnoteSupportedFormDataFile } from "~/utils/file";
 import { callApiUserGeneratePDF } from "~/api/user/generatePDF";
+import { Onglets } from "~/parser/onglets";
 
 //TODO: Check descriptions and language!
 /** A reprensentation of the Pronote client.
@@ -134,6 +135,12 @@ export default class Pronote {
    */
   public get authorizations (): Authorizations {
     return this.#authorizations;
+  }
+
+  #onglets: Onglets;
+
+  public get onglets(): Onglets {
+    return this.#onglets;
   }
   /**
    * First day of the entire timetable.
@@ -299,6 +306,7 @@ export default class Pronote {
     this.lastDate = readPronoteApiDate(loginInformations.donnees.General.DerniereDate.V);
 
     this.#authorizations = new Authorizations(user.autorisations);
+    this.#onglets = new Onglets(user);
 
     this.username = credentials.username;
     this.nextTimeToken = credentials.token;
