@@ -1,7 +1,7 @@
-import { getPronoteInstanceInformation, defaultPawnoteFetcher } from "../src";
+import { getPronoteInstanceInformation, defaultFetcher } from "../src";
 
 (async () => {
-  const instance = await getPronoteInstanceInformation(defaultPawnoteFetcher, {
+  const instance = await getPronoteInstanceInformation(defaultFetcher, {
     pronoteURL: "https://demo.index-education.net/pronote"
   });
 

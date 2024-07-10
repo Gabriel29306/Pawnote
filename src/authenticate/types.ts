@@ -1,5 +1,5 @@
 import type { PronoteApiAccountId } from "~/constants/accounts";
-import type { PawnoteFetcher } from "~/utils/fetcher";
+import type { Fetcher } from "@literate.ink/utilities/fetcher";
 
 interface AuthenticateBaseOptions {
   /**
@@ -13,7 +13,7 @@ interface AuthenticateBaseOptions {
    * If, for some reason, you need to use another method to make an
    * HTTP request, you'll have to provide it here.
    */
-  fetcher?: PawnoteFetcher
+  fetcher?: Fetcher
 }
 
 export interface AuthenticatePronoteCredentialsOptions extends AuthenticateBaseOptions {

@@ -1,9 +1,9 @@
-import { findPronoteInstances, defaultPawnoteFetcher, type PronoteInstance } from "../src";
+import { findPronoteInstances, defaultFetcher, type PronoteInstance } from "../src";
 
 (async () => {
   // We need to provide explicitly the fetcher here, since
   // it's a direct API call.
-  const instances = await findPronoteInstances(defaultPawnoteFetcher, {
+  const instances = await findPronoteInstances(defaultFetcher, {
     latitude: 45.849998,
     longitude: 1.25
   });

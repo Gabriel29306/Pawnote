@@ -1,7 +1,7 @@
 import type { AuthenticatePronoteCredentialsOptions, AuthenticateQRCodeOptions, AuthenticateTokenOptions, NextAuthenticationCredentials } from "./types";
 import { callApiLoginInformations, callApiLoginIdentify, callApiLoginAuthenticate, callApiUserData } from "~/api";
 import { PRONOTE_ACCOUNT_TYPES } from "~/constants/accounts";
-import { defaultPawnoteFetcher } from "~/utils/fetcher";
+import { defaultFetcher } from "@literate.ink/utilities/fetcher";
 import aes from "~/utils/aes";
 
 import Pronote from "~/client/Pronote";
@@ -9,7 +9,7 @@ import forge from "node-forge";
 
 export const authenticatePronoteCredentials = async (pronoteStringURL: string, options: AuthenticatePronoteCredentialsOptions): Promise<Pronote> => {
   // Use default fetcher if not provided.
-  const fetcher = options.fetcher ?? defaultPawnoteFetcher;
+  const fetcher = options.fetcher ?? defaultFetcher;
 
   const pronoteURL = new URL(pronoteStringURL);
 
@@ -130,7 +130,7 @@ export const authenticatePronoteCredentials = async (pronoteStringURL: string, o
 
 export const authenticateToken = async (pronoteStringURL: string, options: AuthenticateTokenOptions): Promise<Pronote> => {
   // Use default fetcher if not provided.
-  const fetcher = options.fetcher ?? defaultPawnoteFetcher;
+  const fetcher = options.fetcher ?? defaultFetcher;
 
   const accountType = PRONOTE_ACCOUNT_TYPES.find((entry) => entry.id === options.accountTypeID);
   if (!accountType) throw new Error(`Invalid account type ID: ${options.accountTypeID}`);
@@ -248,7 +248,7 @@ export const authenticateToken = async (pronoteStringURL: string, options: Authe
 
 export const authenticatePronoteQRCode = async (options: AuthenticateQRCodeOptions): Promise<Pronote> => {
   // Use default fetcher if not provided.
-  const fetcher = options.fetcher ?? defaultPawnoteFetcher;
+  const fetcher = options.fetcher ?? defaultFetcher;
 
   const pinBuffer = forge.util.createBuffer(options.pinCode);
 

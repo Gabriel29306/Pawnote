@@ -24,8 +24,8 @@ export {
   authenticateToken
 } from "~/authenticate";
 
-// Exporting the fetcher type and the default fetcher.
-export { type PawnoteFetcher, defaultPawnoteFetcher } from "~/utils/fetcher";
+// Re-exporting the fetcher types and the default fetcher.
+export { type Fetcher, type FetcherHeaders, defaultFetcher } from "@literate.ink/utilities/fetcher";
 
 export { PawnoteError, PawnoteErrorCodes } from "~/errors/constants";
 export { PawnoteNetworkFail } from "~/errors/NetworkFail";

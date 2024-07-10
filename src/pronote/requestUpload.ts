@@ -1,5 +1,5 @@
 import type { SessionInstance, Session } from "~/session";
-import type { PawnoteFetcher } from "~/utils/fetcher";
+import type { Fetcher } from "@literate.ink/utilities/fetcher";
 
 import { PronoteApiFunctions } from "~/constants/functions";
 import { MOBILE_CHROME_USER_AGENT } from "~/constants/user-agent";
@@ -21,7 +21,7 @@ export type PronoteUploadReturn =
   };
 
 export const createPronoteUploadCall = async (
-  fetcher: PawnoteFetcher,
+  fetcher: Fetcher,
   apiFunctionName: PronoteApiFunctions,
   request: {
     payload: ReturnType<Session["writePronoteFileUploadPayload"]>

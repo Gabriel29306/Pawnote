@@ -1,13 +1,14 @@
-import { authenticatePronoteCredentials, PronoteApiAccountId, findPronoteInstances, type PawnoteFetcher } from "../src";
+import { authenticatePronoteCredentials, PronoteApiAccountId, findPronoteInstances, type Fetcher } from "../src";
 
-const customFetcher: PawnoteFetcher = async (url, options) => {
+const customFetcher: Fetcher = async (url, options) => {
   console.time("request from fetcher");
 
+  const method = options?.method ?? "GET";
   const response = await fetch(url, {
-    method: options.method,
-    headers: options.headers,
-    body: options.method !== "GET" ? options.body : void 0,
-    redirect: options.redirect
+    method,
+    headers: options?.headers,
+    body: method !== "GET" ? options?.body : void 0,
+    redirect: options?.redirect
   });
 
   console.timeEnd("request from fetcher");

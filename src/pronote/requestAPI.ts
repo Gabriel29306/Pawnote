@@ -1,9 +1,9 @@
 import type { SessionInstance, Session } from "~/session";
-import type { PawnoteFetcher } from "~/utils/fetcher";
+import type { Fetcher } from "@literate.ink/utilities/fetcher";
+import { retrieveCreatedCookies } from "@literate.ink/utilities/headers";
 
-import { PronoteApiFunctions } from "~/constants/functions";
-import { retrieveResponseCookies } from "~/utils/headers";
 import { MOBILE_CHROME_USER_AGENT } from "~/constants/user-agent";
+import { PronoteApiFunctions } from "~/constants/functions";
 import { PawnoteNetworkFail } from "~/errors/NetworkFail";
 
 export interface PronoteApiFunctionPayload<T> {
@@ -16,7 +16,7 @@ export interface PronoteApiFunctionPayload<T> {
 }
 
 export const createPronoteAPICall = async (
-  fetcher: PawnoteFetcher,
+  fetcher: Fetcher,
   apiFunctionName: PronoteApiFunctions,
   request: {
     payload: ReturnType<Session["writePronoteFunctionPayload"]>
@@ -44,7 +44,7 @@ export const createPronoteAPICall = async (
     });
 
     const payload = await response.text();
-    const cookies = retrieveResponseCookies(response.headers);
+    const cookies = retrieveCreatedCookies(response.headers);
 
     return { payload, cookies };
   }

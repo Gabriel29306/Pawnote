@@ -1,6 +1,6 @@
 import type { NextAuthenticationCredentials } from "~/authenticate/types";
 import type { ApiLoginInformations } from "~/api/login/informations/types";
-import type { PawnoteFetcher } from "~/utils/fetcher";
+import type { Fetcher } from "@literate.ink/utilities/fetcher";
 
 import {
   callApiUserHomework,
@@ -168,7 +168,7 @@ export default class Pronote {
   } | null>;
 
   constructor (
-    public fetcher: PawnoteFetcher,
+    public fetcher: Fetcher,
     private session: Session,
     credentials: NextAuthenticationCredentials,
 

@@ -1,9 +1,10 @@
-import type { PawnoteFetcher } from "~/utils/fetcher";
+import type { Fetcher } from "@literate.ink/utilities/fetcher";
+import { retrieveCreatedCookies } from "@literate.ink/utilities/headers";
+
 import { MOBILE_CHROME_USER_AGENT } from "~/constants/user-agent";
-import { retrieveResponseCookies } from "~/utils/headers";
 import { PawnoteNetworkFail } from "~/errors/NetworkFail";
 
-export const downloadPronotePage = async (fetcher: PawnoteFetcher, options: {
+export const downloadPronotePage = async (fetcher: Fetcher, options: {
   pronoteURL: string
   cookies?: string[]
 }): Promise<{
@@ -23,7 +24,7 @@ export const downloadPronotePage = async (fetcher: PawnoteFetcher, options: {
     });
 
     return {
-      cookies: retrieveResponseCookies(response.headers),
+      cookies: retrieveCreatedCookies(response.headers),
       body: await response.text()
     };
   }
