@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@literate.ink/utilities':
+        specifier: ^1.0.0
+        version: 1.0.0
       html-entities:
         specifier: ^2.4.0
         version: 2.4.0
@@ -314,6 +317,10 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.20':
     resolution: {integrity: sha512-R8LcPeWZol2zR8mmH3JeKQ6QRCFb7XgUhV9ZlGhHLGyg4wpPiPZNQOOWhFZhxKw8u//yTbNGI42Bx/3paXEQ+Q==}
+
+  '@literate.ink/utilities@1.0.0':
+    resolution: {integrity: sha512-SBStKy/CzHtjx2NsOEdFKbzxYdNmJt7JETZiLun27HM+A1kpeh9UFwKJDAFZuQoD7rg5jV531NGKIl6TYXfJ0A==}
+    engines: {node: '>=18'}
 
   '@ljharb/through@2.3.11':
     resolution: {integrity: sha512-ccfcIDlogiXNq5KcbAwbaO7lMh3Tm1i3khMPYpxlK8hH/W53zN81KM9coerRLOnTGu3nfXIniAmQbRI9OxbC0w==}
@@ -2583,6 +2590,10 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
+  '@literate.ink/utilities@1.0.0':
+    dependencies:
+      set-cookie-parser: 2.6.0
+
   '@ljharb/through@2.3.11':
     dependencies:
       call-bind: 1.0.5
@@ -2806,6 +2817,7 @@ snapshots:
       '@typescript-eslint/visitor-keys': 6.18.0
       debug: 4.3.4
       eslint: 8.56.0
+    optionalDependencies:
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
@@ -2827,6 +2839,7 @@ snapshots:
       minimatch: 9.0.3
       semver: 7.5.4
       ts-api-utils: 1.0.3(typescript@5.3.3)
+    optionalDependencies:
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
@@ -3116,6 +3129,7 @@ snapshots:
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
+    optionalDependencies:
       typescript: 5.3.3
 
   cross-spawn@7.0.3:
@@ -4634,6 +4648,7 @@ snapshots:
       source-map: 0.8.0-beta.0
       sucrase: 3.35.0
       tree-kill: 1.2.2
+    optionalDependencies:
       typescript: 5.3.3
     transitivePeerDependencies:
       - supports-color
