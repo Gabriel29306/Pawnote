@@ -6,12 +6,12 @@
 </p>
 
 
-[Index-Education's Pronote](https://www.index-education.com/fr/logiciel-gestion-vie-scolaire.php) is a school management application used by educational establishments to centralize and facilitate communication between teachers, students and parents. It lets you manage and consult timetables, grades, absences and homework, as well as communicate via messages. Pronote aims to improve the transparency and efficiency of day-to-day school management.
+[PRONOTE](https://www.index-education.com/fr/logiciel-gestion-vie-scolaire.php) is a school management application used by educational establishments to centralize and facilitate communication between teachers, students and parents. It lets you manage and consult timetables, grades, absences and homework, as well as communicate via messages. PRONOTE aims to improve the transparency and efficiency of day-to-day school management.
 
-Pawnote is a simple wrapper around [Index-Education's Pronote](https://www.index-education.com/fr/logiciel-gestion-vie-scolaire.php) internal API.
+Pawnote is a simple wrapper around [Index-Education's PRONOTE](https://www.index-education.com/fr/logiciel-gestion-vie-scolaire.php) internal API.
 
 > [!NOTE]
-> This project is not affiliated with Index-Education or Pronote in any way.
+> This project is not affiliated with [Index-Education](https://www.index-education.com/) or PRONOTE in any way.
 
 ## Supported languages
 
@@ -35,11 +35,12 @@ Join [LiterateInk's Discord server](https://discord.gg/f5KNCnMWzB) to talk about
 
 Without those people / projects, this library wouldn't be here.
 
-- [Pronote Protocol](https://github.com/bain3/pronotepy/blob/master/PRONOTE%20protocol.md) written by developers of `pronotepy`.
+- [PRONOTE Protocol](https://github.com/bain3/pronotepy/blob/master/PRONOTE%20protocol.md) written by developers of `pronotepy`.
 - [`pronote-api`](https://github.com/Merlode11/pronote-api)'s (forked) source code.
 - [`pronotepy`](https://github.com/bain3/pronotepy)'s source code.
-- [Pronote QR Code API](https://github.com/Androz2091/pronote-qrcode-api)
-- [Read encrypted/compressed responses from Pronote](https://gist.github.com/Vexcited/3b599b4eaf0797b532f087540728ec09)
+- [PRONOTE QR Code API](https://github.com/Androz2091/pronote-qrcode-api)
+- [Read encrypted/compressed responses from PRONOTE](https://gist.github.com/Vexcited/3b599b4eaf0797b532f087540728ec09)
+- [Install a SSL certificate on a PRONOTE instance for development purposes](https://gist.github.com/Vexcited/977d7a71aab3f5082f476bdb9e7c1248)
 
 ## License
 
